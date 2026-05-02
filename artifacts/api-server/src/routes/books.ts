@@ -1,7 +1,7 @@
 import { Router, type IRouter } from "express";
 import { db } from "@workspace/db";
 import { booksTable } from "@workspace/db";
-import { eq, ilike, lte, gte, and, desc, asc, sql, ne } from "drizzle-orm";
+import { eq, ilike, lte, gte, and, or, desc, asc, sql, ne } from "drizzle-orm";
 import {
   ListBooksQueryParams,
   CreateBookBody,
@@ -42,7 +42,13 @@ router.get("/books", async (req, res) => {
   const { search, category, minPrice, maxPrice, featured, trending, sortBy, page = 1, limit = 20 } = query;
 
   const conditions = [];
-  if (search) conditions.push(ilike(booksTable.title, `%${search}%`));
+  if (search) conditions.push(
+    or(
+      ilike(booksTable.title, `%${search}%`),
+      ilike(booksTable.author, `%${search}%`),
+      ilike(booksTable.category, `%${search}%`)
+    )!
+  );
   if (category) conditions.push(eq(booksTable.category, category));
   if (minPrice !== undefined) conditions.push(gte(sql`${booksTable.price}::numeric`, minPrice));
   if (maxPrice !== undefined) conditions.push(lte(sql`${booksTable.price}::numeric`, maxPrice));

@@ -94,4 +94,24 @@ This regenerates:
 
 ## Seeded Data
 
-16 books: The Alchemist, Atomic Habits, Sapiens, Rich Dad Poor Dad, To Kill a Mockingbird, The Power of Now, 1984, Brief History of Time, The Psychology of Money, Pride and Prejudice, Clean Code, The Subtle Art of Not Giving a F*ck, Elon Musk, Harry Potter and the Sorcerer's Stone, The Da Vinci Code, Zero to One.
+76 books across 17 categories. Categories and counts:
+- **Self-Help**: Atomic Habits, The Subtle Art, Think and Grow Rich, Can't Hurt Me, You Are a Badass, The Miracle Morning, The 48 Laws of Power
+- **Productivity**: The 7 Habits, Deep Work, The 4-Hour Workweek, The Power of Habit, The Miracle Morning
+- **Finance**: The Intelligent Investor, The Total Money Makeover, I Will Teach You to Be Rich, The Little Book of Common Sense Investing
+- **Psychology**: Mindset, Grit, Thinking Fast and Slow, Influence, Blink, Outliers, The Body Keeps the Score, Emotional Intelligence, The Tipping Point
+- **Business**: Rich Dad Poor Dad, The Psychology of Money, Good to Great, Start with Why, The Innovator's Dilemma, Never Split the Difference
+- **Entrepreneurship**: The Lean Startup, The Hard Thing About Hard Things, Rework, Zero to One
+- **Biography**: Elon Musk, Steve Jobs, Becoming, Leonardo da Vinci, Long Walk to Freedom, Diary of a Young Girl, Shoe Dog, I Am Malala, Gandhi autobiography
+- **Philosophy**: The Power of Now, Meditations, Man's Search for Meaning, Letters from a Stoic, The Art of War, The Book of Five Rings
+- **Spirituality**: Siddhartha, The Bhagavad Gita, Ikigai
+- **Fantasy**: Harry Potter, The Hobbit, Fellowship of the Ring, A Game of Thrones, The Name of the Wind, Dune, The Way of Kings, Ender's Game
+- **Fiction**: The Alchemist, To Kill a Mockingbird, 1984, The Kite Runner, A Thousand Splendid Suns, The Midnight Library
+- **Classics**: The Great Gatsby, Animal Farm, Brave New World, The Catcher in the Rye, Crime and Punishment
+- **Mystery**: The Da Vinci Code
+- **Romance**: Pride and Prejudice
+- **Science**: Brief History of Time
+- **Technology**: Clean Code
+- **History**: Sapiens
+
+## Search
+Search covers title, author, AND category (OR match, case-insensitive). Example: searching "Gladwell" returns all Gladwell books; searching "Fantasy" returns all Fantasy books.

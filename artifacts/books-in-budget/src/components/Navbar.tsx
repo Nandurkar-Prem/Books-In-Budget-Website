@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingCart, Heart, BookOpen, Search, Menu, X, Shield } from "lucide-react";
+import { ShoppingCart, Heart, BookOpen, Search, Menu, X, Shield, MessageCircle, Phone } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
+
+const WHATSAPP = "+919876543210";
+const WHATSAPP_MSG = encodeURIComponent("Hi! I'd like to order a book from Books In Budget.");
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -33,14 +36,35 @@ export default function Navbar() {
     { href: "/", label: "Home" },
     { href: "/books", label: "Browse" },
     { href: "/wishlist", label: "Wishlist" },
+    { href: "/contact", label: "Contact" },
   ];
 
   return (
     <>
+      {/* Top contact strip */}
+      <div className="hidden md:flex bg-primary text-white text-xs items-center justify-between px-6 py-1.5 fixed top-0 left-0 right-0 z-50">
+        <div className="flex items-center gap-4 max-w-7xl mx-auto w-full justify-between">
+          <span className="flex items-center gap-1.5 opacity-90">
+            <Phone size={11} /> +91 98765 43210
+            <span className="mx-2 opacity-40">|</span>
+            hello@booksinbudget.in
+          </span>
+          <a
+            href={`https://wa.me/${WHATSAPP}?text=${WHATSAPP_MSG}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 bg-white/20 hover:bg-white/30 rounded-full px-3 py-0.5 font-semibold transition-colors"
+          >
+            <MessageCircle size={11} /> Order on WhatsApp
+          </a>
+        </div>
+      </div>
+
       <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-40 transition-all duration-300 ${
           scrolled ? "glass shadow-md" : "bg-transparent"
         }`}
+        style={{ top: "28px" }}
         initial={{ y: -80 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
@@ -58,7 +82,7 @@ export default function Navbar() {
               </div>
             </Link>
 
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-7">
               {navLinks.map((link) => (
                 <Link key={link.href} href={link.href} data-testid={`link-nav-${link.label.toLowerCase()}`}>
                   <span className={`text-sm font-medium transition-colors hover:text-primary cursor-pointer ${
@@ -70,7 +94,18 @@ export default function Navbar() {
               ))}
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              {/* WhatsApp quick button - desktop */}
+              <a
+                href={`https://wa.me/${WHATSAPP}?text=${WHATSAPP_MSG}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden md:flex items-center gap-1.5 bg-[#25D366] text-white text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-[#1ebe5c] transition-colors shadow-sm"
+              >
+                <MessageCircle size={14} />
+                WhatsApp
+              </a>
+
               <button
                 data-testid="button-search-toggle"
                 onClick={() => setSearchOpen(!searchOpen)}
@@ -149,6 +184,7 @@ export default function Navbar() {
         </AnimatePresence>
       </motion.nav>
 
+      {/* Mobile drawer */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -166,13 +202,15 @@ export default function Navbar() {
               <X size={20} />
             </button>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1 flex-1">
               {navLinks.map((link) => (
                 <Link key={link.href} href={link.href}>
                   <span
                     data-testid={`link-mobile-${link.label.toLowerCase()}`}
                     onClick={() => setMenuOpen(false)}
-                    className="block px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium cursor-pointer"
+                    className={`block px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium cursor-pointer ${
+                      location === link.href ? "text-primary bg-primary/5" : ""
+                    }`}
                   >
                     {link.label}
                   </span>
@@ -187,6 +225,25 @@ export default function Navbar() {
                   Admin
                 </span>
               </Link>
+            </div>
+
+            {/* Mobile contact actions */}
+            <div className="border-t border-border pt-6 flex flex-col gap-2">
+              <a
+                href={`https://wa.me/${WHATSAPP}?text=${WHATSAPP_MSG}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center gap-2 bg-[#25D366] text-white font-semibold px-4 py-3 rounded-xl hover:bg-[#1ebe5c] transition-colors"
+              >
+                <MessageCircle size={18} /> Order on WhatsApp
+              </a>
+              <a
+                href="tel:+919876543210"
+                className="flex items-center gap-2 bg-primary text-white font-semibold px-4 py-3 rounded-xl hover:bg-primary/90 transition-colors"
+              >
+                <Phone size={18} /> Call Now
+              </a>
             </div>
           </motion.div>
         )}

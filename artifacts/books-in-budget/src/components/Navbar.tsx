@@ -5,7 +5,7 @@ import { ShoppingCart, Heart, BookOpen, Search, Menu, X, Shield, MessageCircle, 
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 
-const WHATSAPP = "+919876543210";
+const WHATSAPP = "+917666344835";
 const WHATSAPP_MSG = encodeURIComponent("Hi! I'd like to order a book from Books In Budget.");
 
 export default function Navbar() {
@@ -45,9 +45,9 @@ export default function Navbar() {
       <div className="hidden md:flex bg-primary text-white text-xs items-center justify-between px-6 py-1.5 fixed top-0 left-0 right-0 z-50">
         <div className="flex items-center gap-4 max-w-7xl mx-auto w-full justify-between">
           <span className="flex items-center gap-1.5 opacity-90">
-            <Phone size={11} /> +91 98765 43210
+            <Phone size={11} /> +91 7666344835
             <span className="mx-2 opacity-40">|</span>
-            hello@booksinbudget.in
+            nandurkarprem11@gmail.com
           </span>
           <a
             href={`https://wa.me/${WHATSAPP}?text=${WHATSAPP_MSG}`}
@@ -239,7 +239,7 @@ export default function Navbar() {
                 <MessageCircle size={18} /> Order on WhatsApp
               </a>
               <a
-                href="tel:+919876543210"
+                href="tel:+917666344835"
                 className="flex items-center gap-2 bg-primary text-white font-semibold px-4 py-3 rounded-xl hover:bg-primary/90 transition-colors"
               >
                 <Phone size={18} /> Call Now

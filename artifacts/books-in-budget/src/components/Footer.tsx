@@ -2,14 +2,14 @@ import { BookOpen, Instagram, MessageCircle, Phone, Mail, MapPin, ExternalLink }
 import { Link } from "wouter";
 
 const CONTACT = {
-  whatsapp: "+919876543210",
-  whatsappDisplay: "+91 98765 43210",
-  phone: "+919876543210",
-  phoneDisplay: "+91 98765 43210",
-  email: "hello@booksinbudget.in",
-  instagram: "booksinbudget",
-  instagramUrl: "https://instagram.com/booksinbudget",
-  location: "Bandra West, Mumbai, MH 400050",
+  whatsapp: "+917666344835",
+  whatsappDisplay: "+91 7666344835",
+  phone: "+917666344835",
+  phoneDisplay: "+91 7666344835",
+  email: "nandurkarprem11@gmail.com",
+  instagram: "prem_nandurkar18",
+  instagramUrl: "https://instagram.com/prem_nandurkar18",
+  location: "Nagpur, Maharashtra 441110",
 };
 
 const WHATSAPP_MSG = encodeURIComponent("Hi! I'd like to order a book from Books In Budget.");

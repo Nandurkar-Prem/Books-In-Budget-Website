@@ -16,7 +16,6 @@ import {
 } from "@workspace/api-client-react";
 import BookCard from "@/components/BookCard";
 import BookSkeleton from "@/components/BookSkeleton";
-import Footer from "@/components/Footer";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -292,7 +291,6 @@ export default function Home() {
         </motion.div>
       </section>
 
-      <Footer />
     </div>
   );
 }

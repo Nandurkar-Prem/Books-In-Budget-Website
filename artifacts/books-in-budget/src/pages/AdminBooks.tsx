@@ -9,6 +9,7 @@ import {
 } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
+import BookCover from "@/components/BookCover";
 import BookSkeleton from "@/components/BookSkeleton";
 
 export default function AdminBooks() {
@@ -106,11 +107,9 @@ export default function AdminBooks() {
                     >
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          <img
-                            src={book.imageUrl}
-                            alt={book.title}
-                            className="w-10 h-14 object-cover rounded-lg flex-shrink-0"
-                          />
+                          <div className="relative w-10 h-14 rounded-lg overflow-hidden flex-shrink-0">
+                            <BookCover src={book.imageUrl} alt={book.title} className="w-full h-full object-cover" />
+                          </div>
                           <div>
                             <p className="font-medium text-sm text-foreground line-clamp-1 max-w-[200px]">{book.title}</p>
                             <p className="text-xs text-muted-foreground">{book.author}</p>

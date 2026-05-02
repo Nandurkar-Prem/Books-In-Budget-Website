@@ -13,6 +13,7 @@ import {
 } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
+import BookCover from "@/components/BookCover";
 
 const CATEGORIES = [
   "Fiction", "Non-Fiction", "Science", "History", "Biography",
@@ -306,11 +307,9 @@ export default function AdminBookForm() {
           {form.imageUrl && (
             <div>
               <p className="text-xs text-muted-foreground mb-2">Image Preview</p>
-              <img
-                src={form.imageUrl}
-                alt="Preview"
-                className="w-20 h-28 object-cover rounded-xl border border-border"
-              />
+              <div className="relative w-20 h-28 rounded-xl border border-border overflow-hidden">
+                <BookCover src={form.imageUrl} alt="Preview" className="w-full h-full object-cover" loading="eager" />
+              </div>
             </div>
           )}
 

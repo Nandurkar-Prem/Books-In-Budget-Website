@@ -12,6 +12,7 @@ import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { useToast } from "@/hooks/use-toast";
 import BookCard from "@/components/BookCard";
+import BookCover from "@/components/BookCover";
 import BookSkeleton from "@/components/BookSkeleton";
 import Footer from "@/components/Footer";
 
@@ -92,12 +93,14 @@ export default function BookDetail() {
           >
             <div className="relative max-w-sm w-full">
               <div className="absolute inset-0 bg-primary/10 rounded-3xl translate-x-4 translate-y-4" />
-              <img
-                src={book.imageUrl}
-                alt={book.title}
-                data-testid="img-book-cover"
-                className="relative w-full aspect-[3/4] object-cover rounded-2xl shadow-2xl"
-              />
+              <div className="relative w-full aspect-[3/4] rounded-2xl shadow-2xl overflow-hidden" data-testid="img-book-cover">
+                <BookCover
+                  src={book.imageUrl}
+                  alt={book.title}
+                  loading="eager"
+                  className="w-full h-full object-cover"
+                />
+              </div>
               {book.discountPercent > 0 && (
                 <div className="absolute top-4 left-4 bg-primary text-white text-sm font-bold px-3 py-1.5 rounded-lg shadow-md">
                   -{book.discountPercent}% OFF

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { BookOpen, Package, TrendingUp, Star, ArrowRight, Plus, AlertTriangle } from "lucide-react";
 import { useGetInventory, getGetInventoryQueryKey } from "@workspace/api-client-react";
+import BookCover from "@/components/BookCover";
 import Footer from "@/components/Footer";
 
 export default function Admin() {
@@ -113,7 +114,9 @@ export default function Admin() {
             <div className="space-y-3">
               {(inventory?.recentlyAdded ?? []).map((book) => (
                 <div key={book.id} data-testid={`recent-book-${book.id}`} className="flex gap-3 items-center">
-                  <img src={book.imageUrl} alt={book.title} className="w-10 h-14 object-cover rounded-lg flex-shrink-0" />
+                  <div className="relative w-10 h-14 rounded-lg overflow-hidden flex-shrink-0">
+                    <BookCover src={book.imageUrl} alt={book.title} className="w-full h-full object-cover" />
+                  </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-sm text-foreground line-clamp-1">{book.title}</p>
                     <p className="text-xs text-muted-foreground">{book.author} &middot; {book.category}</p>

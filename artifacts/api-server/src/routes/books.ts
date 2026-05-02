@@ -251,3 +251,23 @@ router.get("/admin/inventory", async (_req, res) => {
 });
 
 export default router;
+
+// Seed data reference — real Open Library cover images by ISBN
+// Format: https://covers.openlibrary.org/b/isbn/{ISBN}-L.jpg
+// Books:
+// 1  The Alchemist           9780062315007
+// 2  Atomic Habits           9780735211292
+// 3  Sapiens                 9780062316097
+// 4  Rich Dad Poor Dad       9781612680194
+// 5  To Kill a Mockingbird   9780061935466
+// 6  The Power of Now        9781577314806
+// 7  1984                    9780451524935
+// 8  Brief History of Time   9780553380163
+// 9  The Psychology of Money 9780857197689
+// 10 Pride and Prejudice     9780141439518
+// 11 Clean Code              9780132350884
+// 12 The Subtle Art...       9780062457714
+// 13 Elon Musk               9781982181284
+// 14 Harry Potter #1         9780439708180
+// 15 The Da Vinci Code       9780307474278
+// 16 Zero to One             9780804139021

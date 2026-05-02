@@ -3,6 +3,7 @@ import { ShoppingCart, Trash2, Plus, Minus, ArrowLeft, ArrowRight } from "lucide
 import { Link } from "wouter";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/hooks/use-toast";
+import BookCover from "@/components/BookCover";
 import Footer from "@/components/Footer";
 
 export default function Cart() {
@@ -60,11 +61,9 @@ export default function Cart() {
                     className="flex gap-4 bg-card border border-card-border rounded-2xl p-4"
                   >
                     <Link href={`/books/${book.id}`}>
-                      <img
-                        src={book.imageUrl}
-                        alt={book.title}
-                        className="w-20 h-28 object-cover rounded-xl cursor-pointer flex-shrink-0"
-                      />
+                      <div className="relative w-20 h-28 rounded-xl overflow-hidden cursor-pointer flex-shrink-0">
+                        <BookCover src={book.imageUrl} alt={book.title} className="w-full h-full object-cover" />
+                      </div>
                     </Link>
 
                     <div className="flex-1 min-w-0">

@@ -153,12 +153,12 @@ export default function Home() {
             className="flex flex-wrap items-center justify-center gap-6 mt-12"
           >
             {[
-              { icon: BookOpen, label: `${stats?.totalBooks ?? 0} Books`, sub: "in collection" },
-              { icon: Tag, label: `Avg ₹${stats?.avgPrice ?? 0}`, sub: "per book" },
-              { icon: TrendingUp, label: `${stats?.trendingCount ?? 0}`, sub: "trending now" },
-              { icon: Star, label: `${stats?.totalCategories ?? 0}`, sub: "categories" },
-            ].map(({ icon: Icon, label, sub }) => (
-              <motion.div key={label} variants={fadeUp} className="text-center">
+              { id: "books", icon: BookOpen, label: `${stats?.totalBooks ?? 0} Books`, sub: "in collection" },
+              { id: "avg", icon: Tag, label: `Avg ₹${stats?.avgPrice ?? 0}`, sub: "per book" },
+              { id: "trending", icon: TrendingUp, label: `${stats?.trendingCount ?? 0}`, sub: "trending now" },
+              { id: "cats", icon: Star, label: `${stats?.totalCategories ?? 0}`, sub: "categories" },
+            ].map(({ id, icon: Icon, label, sub }) => (
+              <motion.div key={id} variants={fadeUp} className="text-center">
                 <div className="flex items-center gap-2 text-foreground font-bold text-lg">
                   <Icon size={18} className="text-primary" />
                   {label}

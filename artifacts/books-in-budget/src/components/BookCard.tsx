@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { useToast } from "@/hooks/use-toast";
+import BookCover from "@/components/BookCover";
 import type { Book } from "@workspace/api-client-react";
 
 interface BookCardProps {
@@ -42,21 +43,20 @@ export default function BookCard({ book }: BookCardProps) {
     >
       <Link href={`/books/${book.id}`}>
         <div className="relative overflow-hidden aspect-[3/4] bg-muted cursor-pointer">
-          <img
+          <BookCover
             src={book.imageUrl}
             alt={book.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            loading="lazy"
           />
 
           {book.discountPercent > 0 && (
-            <div className="absolute top-2 left-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded-lg">
+            <div className="absolute top-2 left-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded-lg z-10">
               -{book.discountPercent}%
             </div>
           )}
 
           {book.trending && (
-            <div className="absolute top-2 right-2 bg-amber-500 text-white text-xs font-bold px-2 py-1 rounded-lg">
+            <div className="absolute top-2 right-10 bg-amber-500 text-white text-xs font-bold px-2 py-1 rounded-lg z-10">
               Trending
             </div>
           )}
@@ -64,7 +64,7 @@ export default function BookCard({ book }: BookCardProps) {
           <button
             data-testid={`button-wishlist-${book.id}`}
             onClick={handleToggleWishlist}
-            className={`absolute top-2 ${book.trending ? "top-9" : "top-2"} right-2 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${
+            className={`absolute top-2 right-2 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 z-10 ${
               wishlisted
                 ? "bg-red-500 text-white"
                 : "bg-white/80 text-gray-600 hover:bg-red-500 hover:text-white"

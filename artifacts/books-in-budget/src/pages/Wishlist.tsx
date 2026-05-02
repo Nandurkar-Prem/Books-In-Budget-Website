@@ -5,7 +5,7 @@ import { useWishlist } from "@/context/WishlistContext";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import BookCover from "@/components/BookCover";
-import Footer from "@/components/Footer";
+import { GB_FALLBACK_COVERS } from "@/utils/coverFallbacks";
 
 export default function Wishlist() {
   const { wishlist, toggleWishlist } = useWishlist();
@@ -48,11 +48,16 @@ export default function Wishlist() {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9, x: -50 }}
-                  className="flex gap-4 bg-card border border-card-border rounded-2xl p-4"
+                  className="flex gap-4 bg-card border border-border rounded-2xl p-4"
                 >
                   <Link href={`/books/${book.id}`}>
-                    <div className="relative w-20 h-28 rounded-xl overflow-hidden cursor-pointer flex-shrink-0">
-                      <BookCover src={book.imageUrl} alt={book.title} className="w-full h-full object-cover" />
+                    <div className="relative w-20 h-28 rounded-xl overflow-hidden cursor-pointer flex-shrink-0 bg-stone-100">
+                      <BookCover
+                        src={book.imageUrl}
+                        fallbackSrc={GB_FALLBACK_COVERS[book.id]}
+                        alt={book.title}
+                        className="w-full h-full object-cover object-center"
+                      />
                     </div>
                   </Link>
 
@@ -63,17 +68,17 @@ export default function Wishlist() {
                         {book.title}
                       </h3>
                     </Link>
-                    <p className="text-xs text-muted-foreground">{book.author}</p>
-                    <p className="font-bold text-primary mt-2">&#8377;{book.price}</p>
+                    <p className="text-xs text-muted-foreground mb-2">{book.author}</p>
+                    <p className="font-bold text-primary mb-3">₹{book.price}</p>
 
-                    <div className="flex items-center gap-2 mt-3">
+                    <div className="flex gap-2">
                       <button
                         data-testid={`button-add-to-cart-wishlist-${book.id}`}
                         onClick={() => {
                           addToCart(book);
                           toast({ title: "Added to cart", description: `"${book.title}" added` });
                         }}
-                        className="flex-1 bg-primary text-white text-xs py-2 px-3 rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-1"
+                        className="flex-1 flex items-center justify-center gap-1.5 bg-primary text-white text-xs font-semibold py-2 rounded-lg hover:bg-primary/90 transition-colors"
                       >
                         <ShoppingCart size={12} />
                         Add to Cart
@@ -96,7 +101,6 @@ export default function Wishlist() {
           </div>
         )}
       </div>
-      <Footer />
     </div>
   );
 }

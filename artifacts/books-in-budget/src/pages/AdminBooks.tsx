@@ -11,6 +11,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import BookCover from "@/components/BookCover";
 import BookSkeleton from "@/components/BookSkeleton";
+import { GB_FALLBACK_COVERS } from "@/utils/coverFallbacks";
 
 export default function AdminBooks() {
   const [search, setSearch] = useState("");
@@ -107,8 +108,13 @@ export default function AdminBooks() {
                     >
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="relative w-10 h-14 rounded-lg overflow-hidden flex-shrink-0">
-                            <BookCover src={book.imageUrl} alt={book.title} className="w-full h-full object-cover" />
+                          <div className="relative w-10 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-stone-100">
+                            <BookCover
+                              src={book.imageUrl}
+                              fallbackSrc={GB_FALLBACK_COVERS[book.id]}
+                              alt={book.title}
+                              className="w-full h-full object-cover object-center"
+                            />
                           </div>
                           <div>
                             <p className="font-medium text-sm text-foreground line-clamp-1 max-w-[200px]">{book.title}</p>

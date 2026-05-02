@@ -4,7 +4,7 @@ import { Link } from "wouter";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import BookCover from "@/components/BookCover";
-import Footer from "@/components/Footer";
+import { GB_FALLBACK_COVERS } from "@/utils/coverFallbacks";
 
 export default function Cart() {
   const { items, removeFromCart, updateQuantity, clearCart, total, itemCount } = useCart();
@@ -58,11 +58,16 @@ export default function Cart() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, x: -100 }}
-                    className="flex gap-4 bg-card border border-card-border rounded-2xl p-4"
+                    className="flex gap-4 bg-card border border-border rounded-2xl p-4"
                   >
                     <Link href={`/books/${book.id}`}>
-                      <div className="relative w-20 h-28 rounded-xl overflow-hidden cursor-pointer flex-shrink-0">
-                        <BookCover src={book.imageUrl} alt={book.title} className="w-full h-full object-cover" />
+                      <div className="relative w-20 h-28 rounded-xl overflow-hidden cursor-pointer flex-shrink-0 bg-stone-100">
+                        <BookCover
+                          src={book.imageUrl}
+                          fallbackSrc={GB_FALLBACK_COVERS[book.id]}
+                          alt={book.title}
+                          className="w-full h-full object-cover object-center"
+                        />
                       </div>
                     </Link>
 
@@ -98,7 +103,7 @@ export default function Cart() {
 
                         <div className="flex items-center gap-3">
                           <span className="font-bold text-primary" data-testid={`text-item-price-${book.id}`}>
-                            &#8377;{(book.price * quantity).toFixed(0)}
+                            ₹{(book.price * quantity).toFixed(0)}
                           </span>
                           <button
                             data-testid={`button-remove-${book.id}`}
@@ -124,14 +129,14 @@ export default function Cart() {
             </div>
 
             <div className="lg:col-span-1">
-              <div className="bg-card border border-card-border rounded-2xl p-6 sticky top-24">
+              <div className="bg-card border border-border rounded-2xl p-6 sticky top-24">
                 <h2 className="font-serif text-xl font-bold text-foreground mb-6">Order Summary</h2>
 
                 <div className="space-y-3 mb-6">
                   {items.map(({ book, quantity }) => (
                     <div key={book.id} className="flex justify-between text-sm">
                       <span className="text-muted-foreground line-clamp-1 flex-1 mr-2">{book.title} x{quantity}</span>
-                      <span className="font-medium shrink-0">&#8377;{(book.price * quantity).toFixed(0)}</span>
+                      <span className="font-medium shrink-0">₹{(book.price * quantity).toFixed(0)}</span>
                     </div>
                   ))}
                 </div>
@@ -139,7 +144,7 @@ export default function Cart() {
                 <div className="border-t border-border pt-4 mb-6 space-y-2">
                   <div className="flex justify-between text-sm text-muted-foreground">
                     <span>Subtotal</span>
-                    <span>&#8377;{total.toFixed(0)}</span>
+                    <span>₹{total.toFixed(0)}</span>
                   </div>
                   <div className="flex justify-between text-sm text-muted-foreground">
                     <span>Shipping</span>
@@ -147,7 +152,7 @@ export default function Cart() {
                   </div>
                   <div className="flex justify-between font-bold text-lg pt-2 border-t border-border">
                     <span>Total</span>
-                    <span className="text-primary" data-testid="text-cart-total">&#8377;{total.toFixed(0)}</span>
+                    <span className="text-primary" data-testid="text-cart-total">₹{total.toFixed(0)}</span>
                   </div>
                 </div>
 
@@ -171,7 +176,6 @@ export default function Cart() {
           </div>
         )}
       </div>
-      <Footer />
     </div>
   );
 }

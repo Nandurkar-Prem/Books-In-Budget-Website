@@ -14,7 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import BookCard from "@/components/BookCard";
 import BookCover from "@/components/BookCover";
 import BookSkeleton from "@/components/BookSkeleton";
-import Footer from "@/components/Footer";
+import { GB_FALLBACK_COVERS } from "@/utils/coverFallbacks";
 
 export default function BookDetail() {
   const [, params] = useRoute("/books/:id");
@@ -92,13 +92,18 @@ export default function BookDetail() {
             className="flex justify-center"
           >
             <div className="relative max-w-sm w-full">
+              {/* Drop shadow behind card */}
               <div className="absolute inset-0 bg-primary/10 rounded-3xl translate-x-4 translate-y-4" />
-              <div className="relative w-full aspect-[3/4] rounded-2xl shadow-2xl overflow-hidden" data-testid="img-book-cover">
+              <div
+                className="relative w-full aspect-[3/4] rounded-2xl shadow-2xl overflow-hidden bg-stone-100"
+                data-testid="img-book-cover"
+              >
                 <BookCover
                   src={book.imageUrl}
+                  fallbackSrc={GB_FALLBACK_COVERS[book.id]}
                   alt={book.title}
-                  loading="eager"
-                  className="w-full h-full object-cover"
+                  priority
+                  className="w-full h-full object-cover object-center"
                 />
               </div>
               {book.discountPercent > 0 && (
@@ -144,19 +149,23 @@ export default function BookDetail() {
             </div>
 
             <div className="flex items-baseline gap-3 mb-6">
-              <span className="text-4xl font-bold text-primary" data-testid="text-book-price">&#8377;{book.price}</span>
+              <span className="text-4xl font-bold text-primary" data-testid="text-book-price">₹{book.price}</span>
               {book.originalPrice > book.price && (
-                <span className="text-lg text-muted-foreground line-through">&#8377;{book.originalPrice}</span>
+                <span className="text-lg text-muted-foreground line-through">₹{book.originalPrice}</span>
               )}
               {book.discountPercent > 0 && (
-                <span className="text-green-600 font-semibold text-sm">Save &#8377;{(book.originalPrice - book.price).toFixed(0)}</span>
+                <span className="text-green-600 font-semibold text-sm">
+                  Save ₹{(book.originalPrice - book.price).toFixed(0)}
+                </span>
               )}
             </div>
 
             {book.description && (
               <div className="mb-8">
                 <h3 className="font-semibold text-foreground mb-2">About this book</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm" data-testid="text-book-description">{book.description}</p>
+                <p className="text-muted-foreground leading-relaxed text-sm" data-testid="text-book-description">
+                  {book.description}
+                </p>
               </div>
             )}
 
@@ -225,8 +234,6 @@ export default function BookDetail() {
           )}
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }

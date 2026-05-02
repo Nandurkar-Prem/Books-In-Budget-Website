@@ -30,9 +30,31 @@ A premium full-stack bookstore web application built with React+Vite, Express/No
 - **Book Detail** (`/books/:id`): Full book info, add to cart, wishlist, related books
 - **Cart** (`/cart`): Context API state, quantity controls, order summary, checkout simulation
 - **Wishlist** (`/wishlist`): localStorage persistence, add-to-cart from wishlist
+- **Contact** (`/contact`): WhatsApp, Instagram, Phone, Email, Location contact cards
 - **Admin Dashboard** (`/admin`): Inventory stats, recently added books
 - **Admin Books** (`/admin/books`): Full CRUD table with search, edit, delete with confirmation
 - **Admin Book Form** (`/admin/books/new`, `/admin/books/:id/edit`): Create/edit books with image preview
+
+## Navigation
+
+- Top contact strip: phone + email + WhatsApp CTA (desktop)
+- Navbar: Home, Browse, Wishlist, Contact links + WhatsApp button + search/wishlist/cart/admin icons
+- Footer: 4-column layout — brand/social, shop links, contact info, order CTAs
+- Contact details: WhatsApp/Phone +919876543210, email hello@booksinbudget.in, Instagram @booksinbudget, Bandra West Mumbai
+
+## Image System
+
+**BookCover component** (`src/components/BookCover.tsx`):
+- 3-phase fallback: primary URL → fallbackSrc → styled text card
+- Uses inline `style` for opacity fade-in to avoid Tailwind `transition-property` conflicts with parent's `transition-transform` hover zoom
+- Smooth skeleton animation while loading
+
+**Image sources (by book)**:
+- Books 1-10, 12-14: Open Library ISBN `-L.jpg` (~400px, high quality, English editions)
+- Books 11 (Clean Code), 15 (Da Vinci Code), 16 (Zero to One): Google Books zoom=1 (reliable, always works)
+- All books have Google Books zoom=1 fallback via `GB_FALLBACK_COVERS` map (`src/utils/coverFallbacks.ts`)
+
+**CSS**: `object-cover object-center` with `bg-stone-100` container background. Fixed `3/4` aspect ratio on all cards.
 
 ## API Endpoints
 
@@ -72,4 +94,4 @@ This regenerates:
 
 ## Seeded Data
 
-16 books seeded including: The Alchemist, Atomic Habits, Sapiens, Rich Dad Poor Dad, 1984, Harry Potter, Clean Code, and more.
+16 books: The Alchemist, Atomic Habits, Sapiens, Rich Dad Poor Dad, To Kill a Mockingbird, The Power of Now, 1984, Brief History of Time, The Psychology of Money, Pride and Prejudice, Clean Code, The Subtle Art of Not Giving a F*ck, Elon Musk, Harry Potter and the Sorcerer's Stone, The Da Vinci Code, Zero to One.

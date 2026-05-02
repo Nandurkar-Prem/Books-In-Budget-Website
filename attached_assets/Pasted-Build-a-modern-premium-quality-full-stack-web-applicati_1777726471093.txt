@@ -1,0 +1,323 @@
+Build a modern, premium-quality full-stack web application called **“Books In Budget”** for a real bookstore business. The app should look and feel like a modern animated ecommerce platform with smooth UI, responsive layouts, elegant transitions, and production-level architecture.
+
+The application must be built using the following stack:
+
+## Tech Stack
+
+### Frontend
+
+* React.js + Vite
+* Tailwind CSS
+* React Router DOM
+* Framer Motion
+* Axios
+* Lucide React Icons
+* TanStack React Query
+* Context API for Cart and Wishlist
+* Responsive mobile-first design
+
+### Backend
+
+* Spring Boot 3
+* Java 21
+* Spring Web
+* Spring Data JPA
+* MySQL
+* Maven
+* REST APIs
+* Global Exception Handling
+* DTO Pattern
+* CORS Configuration
+
+### Database
+
+* MySQL
+
+---
+
+# Main Goal
+
+Create a premium bookstore web application similar to modern ecommerce websites like Amazon Books or premium indie bookstores, but focused on:
+
+* Affordable books
+* Budget-based discovery
+* Modern UI/UX
+* Smooth animations
+* Elegant typography
+* Fast performance
+
+The design should feel:
+
+* Minimal
+* Modern
+* Dynamic
+* Interactive
+* Premium
+* Smoothly animated
+
+Use subtle gradients, hover effects, glassmorphism, smooth scrolling, animated sections, skeleton loading, and responsive grids.
+
+---
+
+# Features Required
+
+## Public User Features
+
+### Home Page
+
+Create a stunning landing page with:
+
+* Hero section
+* Animated floating book graphics
+* Search bar
+* Featured collections
+* Trending books
+* Books under ₹199
+* Category browsing
+* Smooth scroll animations
+* Responsive layouts
+
+### Book Browsing
+
+Users should be able to:
+
+* View all books
+* Search books
+* Filter by:
+
+  * category
+  * price
+  * trending
+  * featured
+* Sort books
+
+### Book Cards
+
+Each book card should include:
+
+* Book image
+* Title
+* Author
+* Price
+* Original price
+* Discount percentage
+* Rating
+* Wishlist button
+* Add to cart button
+* Hover animation
+
+### Book Detail Page
+
+Include:
+
+* Large image
+* Description
+* Reviews
+* Ratings
+* Related books
+* Add to cart
+* Wishlist
+* Animated transitions
+
+### Cart System
+
+Users should:
+
+* Add books to cart
+* Remove books
+* Update quantity
+* View total price
+
+### Wishlist System
+
+Users can:
+
+* Add/remove wishlist items
+* Persist wishlist using local storage
+
+---
+
+# Admin Panel
+
+Create an admin dashboard where admin can:
+
+* Add books
+* Edit books
+* Delete books
+* Upload images
+* Manage categories
+* View inventory
+
+Use modern dashboard UI with sidebar and cards.
+
+---
+
+# Backend Requirements
+
+## REST API Endpoints
+
+### Books APIs
+
+* GET /api/books
+* GET /api/books/{id}
+* POST /api/books
+* PUT /api/books/{id}
+* DELETE /api/books/{id}
+
+### Special APIs
+
+* GET /api/books/trending
+* GET /api/books/featured
+* GET /api/books/budget?maxPrice=199
+* GET /api/books/categories
+
+---
+
+# Backend Architecture
+
+Use clean layered architecture:
+
+* controller
+* service
+* repository
+* entity
+* dto
+* exception
+* config
+
+Use:
+
+* DTO mapping
+* Global exception handling
+* Proper HTTP status codes
+* Validation annotations
+
+---
+
+# Suggested Project Structure
+
+## Backend Structure
+
+backend/
+
+* src/main/java/com/booksinbudget/
+
+  * controller/
+  * service/
+  * repository/
+  * entity/
+  * dto/
+  * exception/
+  * config/
+
+## Frontend Structure
+
+frontend/src/
+
+* components/
+
+  * common/
+  * layout/
+* pages/
+* context/
+* services/
+* hooks/
+
+---
+
+# UI/UX Requirements
+
+The frontend should include:
+
+* Smooth animations using Framer Motion
+* Hover lift effects
+* Animated buttons
+* Gradient hero section
+* Skeleton loading states
+* Responsive navbar
+* Sticky header
+* Footer
+* Beautiful typography
+* Mobile responsiveness
+* Modern ecommerce feel
+
+Use:
+
+* rounded-2xl cards
+* soft shadows
+* subtle gradients
+* hover scaling
+* animated transitions
+
+---
+
+# Extra Enhancements
+
+Add:
+
+* Loading spinners
+* Error states
+* Empty states
+* Toast notifications
+* Lazy image loading
+* Optimized rendering
+* Reusable components
+
+---
+
+# Backend Database Schema
+
+Book fields:
+
+* id
+* title
+* author
+* description
+* category
+* price
+* originalPrice
+* imageUrl
+* rating
+* reviewCount
+* featured
+* trending
+* stockQuantity
+
+---
+
+# Important Development Requirements
+
+* Use reusable components
+* Write clean scalable code
+* Use proper folder structure
+* Add comments where needed
+* Ensure responsive behavior
+* Avoid crashes from undefined values
+* Add fallback handling
+* Use safe optional chaining
+* Use loading skeletons during API calls
+
+---
+
+# Final Goal
+
+The finished application should look like a real modern startup-quality bookstore platform that could actually be deployed for a real business.
+
+The UI should feel:
+
+* modern
+* smooth
+* premium
+* animated
+* professional
+* dynamic
+
+The codebase should be:
+
+* clean
+* scalable
+* maintainable
+* production-ready
+* component-driven
+
+Generate all required frontend and backend code, configuration files, API integrations, folder structures, and setup instructions.

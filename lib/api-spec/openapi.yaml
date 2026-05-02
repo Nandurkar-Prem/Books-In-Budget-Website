@@ -3,13 +3,19 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Books In Budget API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: books
+    description: Book operations
+  - name: categories
+    description: Category operations
+  - name: admin
+    description: Admin operations
 paths:
   /healthz:
     get:
@@ -24,6 +30,289 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /books:
+    get:
+      operationId: listBooks
+      tags: [books]
+      summary: List all books
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: minPrice
+          in: query
+          schema:
+            type: number
+        - name: maxPrice
+          in: query
+          schema:
+            type: number
+        - name: featured
+          in: query
+          schema:
+            type: boolean
+        - name: trending
+          in: query
+          schema:
+            type: boolean
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+            enum: [price_asc, price_desc, rating, title]
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        "200":
+          description: List of books
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookListResponse"
+    post:
+      operationId: createBook
+      tags: [admin]
+      summary: Create a new book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBookBody"
+      responses:
+        "201":
+          description: Book created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+
+  /books/trending:
+    get:
+      operationId: getTrendingBooks
+      tags: [books]
+      summary: Get trending books
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        "200":
+          description: Trending books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Book"
+
+  /books/featured:
+    get:
+      operationId: getFeaturedBooks
+      tags: [books]
+      summary: Get featured books
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        "200":
+          description: Featured books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Book"
+
+  /books/budget:
+    get:
+      operationId: getBudgetBooks
+      tags: [books]
+      summary: Get books under a budget price
+      parameters:
+        - name: maxPrice
+          in: query
+          schema:
+            type: number
+            default: 199
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        "200":
+          description: Budget books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Book"
+
+  /books/stats:
+    get:
+      operationId: getBooksStats
+      tags: [books]
+      summary: Get aggregated book stats for the homepage
+      responses:
+        "200":
+          description: Book stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookStats"
+
+  /books/{id}:
+    get:
+      operationId: getBook
+      tags: [books]
+      summary: Get a book by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Book details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+        "404":
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      operationId: updateBook
+      tags: [admin]
+      summary: Update a book
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateBookBody"
+      responses:
+        "200":
+          description: Book updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+        "404":
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      operationId: deleteBook
+      tags: [admin]
+      summary: Delete a book
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Book deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteResponse"
+        "404":
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /books/{id}/related:
+    get:
+      operationId: getRelatedBooks
+      tags: [books]
+      summary: Get books related to a given book
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 6
+      responses:
+        "200":
+          description: Related books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Book"
+
+  /categories:
+    get:
+      operationId: listCategories
+      tags: [categories]
+      summary: List all categories with book counts
+      responses:
+        "200":
+          description: Categories list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+
+  /admin/inventory:
+    get:
+      operationId: getInventory
+      tags: [admin]
+      summary: Get inventory overview for admin dashboard
+      responses:
+        "200":
+          description: Inventory stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InventoryStats"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +323,223 @@ components:
       required:
         - status
 
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        author:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        price:
+          type: number
+        originalPrice:
+          type: number
+        imageUrl:
+          type: string
+        rating:
+          type: number
+        reviewCount:
+          type: integer
+        featured:
+          type: boolean
+        trending:
+          type: boolean
+        stockQuantity:
+          type: integer
+        discountPercent:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - author
+        - category
+        - price
+        - originalPrice
+        - imageUrl
+        - rating
+        - reviewCount
+        - featured
+        - trending
+        - stockQuantity
+        - discountPercent
+
+    BookListResponse:
+      type: object
+      properties:
+        books:
+          type: array
+          items:
+            $ref: "#/components/schemas/Book"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+        totalPages:
+          type: integer
+      required:
+        - books
+        - total
+        - page
+        - limit
+        - totalPages
+
+    CreateBookBody:
+      type: object
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        price:
+          type: number
+        originalPrice:
+          type: number
+        imageUrl:
+          type: string
+        rating:
+          type: number
+        reviewCount:
+          type: integer
+        featured:
+          type: boolean
+        trending:
+          type: boolean
+        stockQuantity:
+          type: integer
+      required:
+        - title
+        - author
+        - category
+        - price
+        - originalPrice
+        - imageUrl
+
+    UpdateBookBody:
+      type: object
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        price:
+          type: number
+        originalPrice:
+          type: number
+        imageUrl:
+          type: string
+        rating:
+          type: number
+        reviewCount:
+          type: integer
+        featured:
+          type: boolean
+        trending:
+          type: boolean
+        stockQuantity:
+          type: integer
+
+    Category:
+      type: object
+      properties:
+        name:
+          type: string
+        bookCount:
+          type: integer
+        slug:
+          type: string
+      required:
+        - name
+        - bookCount
+        - slug
+
+    BookStats:
+      type: object
+      properties:
+        totalBooks:
+          type: integer
+        totalCategories:
+          type: integer
+        avgPrice:
+          type: number
+        booksUnder199:
+          type: integer
+        trendingCount:
+          type: integer
+        featuredCount:
+          type: integer
+      required:
+        - totalBooks
+        - totalCategories
+        - avgPrice
+        - booksUnder199
+        - trendingCount
+        - featuredCount
+
+    InventoryStats:
+      type: object
+      properties:
+        totalBooks:
+          type: integer
+        totalStock:
+          type: integer
+        lowStockCount:
+          type: integer
+        outOfStockCount:
+          type: integer
+        totalCategories:
+          type: integer
+        recentlyAdded:
+          type: array
+          items:
+            $ref: "#/components/schemas/Book"
+      required:
+        - totalBooks
+        - totalStock
+        - lowStockCount
+        - outOfStockCount
+        - totalCategories
+        - recentlyAdded
+
+    DeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      required:
+        - success
+        - message
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+      required:
+        - error
+        - message
